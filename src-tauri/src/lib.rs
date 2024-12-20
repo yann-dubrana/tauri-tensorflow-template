@@ -1,4 +1,5 @@
 use tauri::WindowEvent;
+use server::ServerMode;
 
 mod server;
 
@@ -17,7 +18,7 @@ pub fn run() {
                 .plugin(tauri_plugin_log::Builder::new().build())?;
             app.handle()
                 .plugin(tauri_plugin_window_state::Builder::default().build())?;
-            tauri::async_runtime::block_on(server::run(app))?;
+            tauri::async_runtime::block_on(server::run(app, ServerMode::MultiFile))?;
             Ok(())
         })
         .on_window_event(|_window, event| match event {
