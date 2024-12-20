@@ -13,3 +13,4 @@ vite.config.ts.timestamp-*
 .vscode
 src-tauri/target
 src-tauri/bin
+.tauri

@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "tauri-tensorflow",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "identifier": "com.tauri-tensorflow.app",
   "build": {
     "beforeDevCommand": "pnpm dev",
@@ -24,6 +24,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "createUpdaterArtifacts": true,
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -36,6 +37,17 @@
     ],
     "resources": {
       "bin/tensorflow-server-x86_64-pc-windows-msvc/_internal": "_internal"
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEI1QUJDMDQwREU5Q0QxMTkKUldRWjBaemVRTUNydFdkellLVU5uWElXZEJaK1dPTkp5eDFjRjU4ZTlZRExhZG5jMm1kSXNEODgK",
+      "endpoints": [
+        "https://github.com/yann-dubrana/tauri-tensorflow-template/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
     }
   }
 }

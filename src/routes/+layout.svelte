@@ -3,6 +3,7 @@
     import {client} from "$lib/client";
     import {onMount} from "svelte";
     import {serverHealthStore} from "$lib/health.store.svelte";
+    import Update from "$lib/components/Update.svelte";
 
     let {data, children} = $props();
 
@@ -17,3 +18,4 @@
 </script>
 
 {@render children()}
+<Update/>
