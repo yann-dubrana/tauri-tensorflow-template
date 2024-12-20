@@ -6,7 +6,6 @@
     let { memoryInfo }: { memoryInfo: MemoryInfo } = $props();
 
     const toGB = (bytes: number) => (bytes / Math.pow(1024, 3)).toFixed(2);
-    $inspect(memoryInfo)
 </script>
 
 <Card>
