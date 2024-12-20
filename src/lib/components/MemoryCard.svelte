@@ -5,7 +5,8 @@
 
     let { memoryInfo }: { memoryInfo: MemoryInfo } = $props();
 
-    const toGB = (bytes: number) => (bytes / 1024).toFixed(2);
+    const toGB = (bytes: number) => (bytes / Math.pow(1024, 3)).toFixed(2);
+    $inspect(memoryInfo)
 </script>
 
 <Card>
@@ -14,9 +15,8 @@
         <MemoryStick size={16} />
     </div>
     <div class="space-y-3">
+        <Progressbar  progress={memoryInfo.percentage} color="green"/>
         <div class="space-y-2">
-            <p class="text-sm font-medium">Memory Usage</p>
-            <Progressbar  progress={memoryInfo.percentage} />
             <p class="text-xs text-muted-foreground">{memoryInfo.percentage}% used</p>
         </div>
         <div class="space-y-1">
