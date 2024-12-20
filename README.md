@@ -142,11 +142,11 @@ pnpm run build-server-client
 ### 6. **Package the Application**
 
 To package the application for distribution, i have created a github actions that will build the application for
-windows, linux and macos.
+windows.
 This is compatible with Tauri updater and public realease in private repository.
 Feel free to open an issue if you want to know more about it.
 
-```bash
+
 ### Notes:
 
 - Ensure all required dependencies are installed correctly for both the backend and frontend.
