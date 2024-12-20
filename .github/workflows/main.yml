@@ -52,7 +52,7 @@ jobs:
         shell: bash -el {0}
         run: |
           conda activate tensorflow-fastapi
-          pyinstaller 'server/server.spec' --distpath '/src-tauri/bin'  --noconfirm --clean
+          pyinstaller 'server/server.spec' --distpath 'src-tauri/bin'  --noconfirm --clean
 
       - name: setup node # Setup node for the frontend
         uses: actions/setup-node@v4
