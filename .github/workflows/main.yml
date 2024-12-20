@@ -1,0 +1,86 @@
+name: 'publish'
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.10" ]
+        include:
+          - platform: 'windows-latest'
+            args: ''
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Export GitHub Actions cache environment variables # Export the cache environment variables
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+
+      - name: Cache conda
+        uses: actions/cache@v3
+        env:
+          # Increase this value to reset cache if etc/example-environment.yml has not changed
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
+            hashFiles('server/environment.yml') }}
+
+      - name: Setup Miniconda # Using conda because seems better for utils
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: tensorflow-fastapi
+          python-version: 3.10
+          auto-activate-base: false
+          channels: 'conda-forge'
+          environment-file: server/environment.yml
+
+      - name: Build Python Sidecar # Build a processing sidecar for the tauri app using pyinstaller | not using onefile beacause _internals is way faster.
+        shell: bash -el {0}
+        run: |
+          conda activate tensorflow-fastapi
+          pyinstaller '/server/server.spec' --distpath '/src-tauri/bin' --workpath '/src-tauri/.build' --specpath '/src-tauri/.build' --noconfirm --clean
+
+      - name: setup node # Setup node for the frontend
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: install pnpm # Install pnpm for the frontend
+        run: npm install -g pnpm
+
+      - name: install Rust stable # Install rust stable for the tauri app
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: install frontend dependencies # Install the frontend dependencies
+        run: pnpm install
+
+      - uses: tauri-apps/tauri-action@v0 # Build the tauri app and release it on a public release
+        with:
+          tagName: app-v__VERSION__
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install. '
+          releaseDraft: false
+          prerelease: false
+          releaseCommitish: main
