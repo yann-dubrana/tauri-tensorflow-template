@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.10" ]
+        python-version: [ "3.9" ]
         include:
           - platform: 'windows-latest'
             args: ''
@@ -43,7 +43,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: tensorflow-fastapi
-          python-version: 3.10
+          python-version: 3.9
           auto-activate-base: false
           channels: 'conda-forge'
           environment-file: server/environment.yml
