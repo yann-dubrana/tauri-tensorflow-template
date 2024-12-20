@@ -30,7 +30,7 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       '@tauri-apps/plugin-updater':
-        specifier: ^2.3.0
+        specifier: ^2.2.0
         version: 2.3.0
       '@tauri-apps/plugin-window-state':
         specifier: ~2

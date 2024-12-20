@@ -9,6 +9,8 @@
     "main"
   ],
   "permissions": [
-    "window-state:default"
+    "window-state:default",
+    "updater:default",
+    "updater:allow-download-and-install"
   ]
 }

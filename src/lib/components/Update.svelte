@@ -56,7 +56,6 @@
         }
     });
 
-    $inspect({update, downloaded, contentLength, progress});
 </script>
 
 {#if update}

@@ -18,6 +18,7 @@ pub fn run() {
                 .plugin(tauri_plugin_log::Builder::new().build())?;
             app.handle()
                 .plugin(tauri_plugin_window_state::Builder::default().build())?;
+            app.handle().plugin(tauri_plugin_updater::Builder::new().build())?;
             tauri::async_runtime::block_on(server::run(app, ServerMode::MultiFile))?;
             Ok(())
         })
