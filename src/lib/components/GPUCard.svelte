@@ -8,7 +8,7 @@
 
 <Card>
     <div class="flex flex-row items-center justify-between space-y-0 pb-2">
-        <h3 class="text-sm font-medium">GPU Information</h3>
+        <h3 class="text-sm font-medium">Tensorflow GPU Information</h3>
         <HardDriveIcon size={16}/>
     </div>
     <div class="space-y-3">
