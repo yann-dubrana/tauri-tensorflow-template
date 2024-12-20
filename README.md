@@ -31,7 +31,8 @@ desktop applications with integrated machine learning capabilities.
 
 ### 1. **Prerequisites: GPU Capabilities**
 
-To enable GPU capabilities for TensorFlow, you must install the following NVIDIA components and add their paths to the system environment variables:
+To enable GPU capabilities for TensorFlow, you must install the following NVIDIA components and add their paths to the
+system environment variables:
 Maybe try with only 12.6 and cudnn 9.6 first and if it doesn't work try with 11.8 and cudnn 8.9
 
 #### **Install CUDA and cuDNN**
@@ -66,6 +67,7 @@ cd tauri-tensorflow-template
 ### 3. **Set Up the Backend**
 
 #### Install Python Dependencies:
+
 Use Conda to create the required environment from the `environment.yml` file:
 
 ```bash
@@ -73,6 +75,7 @@ cd server
 conda create --file environment.yml
 conda activate tauri-tensorflow
 ```
+
 #### **Verify Installation**
 
 To confirm the installation:
@@ -88,8 +91,8 @@ To confirm the installation:
    python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
    ```
 
-
 #### Package the Backend:
+
 Use the provided PowerShell script to bundle the server into an executable using PyInstaller:
 
 ```bash
@@ -103,6 +106,7 @@ This will generate the server executable along with the required Python runtime.
 ### 4. **Set Up the Frontend**
 
 #### Install Node.js Dependencies:
+
 Navigate to the `frontend` directory and install the required packages:
 
 ```bash
@@ -111,6 +115,7 @@ pnpm install
 ```
 
 #### Generate the TypeScript Client:
+
 Start the backend server and build the API client for the frontend:
 
 ```bash
@@ -134,6 +139,14 @@ pnpm run build-server-client
 
 ---
 
+### 6. **Package the Application**
+
+To package the application for distribution, i have created a github actions that will build the application for
+windows, linux and macos.
+This is compatible with Tauri updater and public realease in private repository.
+Feel free to open an issue if you want to know more about it.
+
+```bash
 ### Notes:
 
 - Ensure all required dependencies are installed correctly for both the backend and frontend.
