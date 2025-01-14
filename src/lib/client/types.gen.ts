@@ -47,11 +47,11 @@ export type GPUInfo = {
     /**
      * List of available GPU devices
      */
-    gpu_devices?: Array<(string)>;
+    gpu_devices: Array<(string)>;
     /**
      * List of available CPU devices
      */
-    cpu_devices?: Array<(string)>;
+    cpu_devices: Array<(string)>;
     /**
      * Whether TensorFlow was built with CUDA
      */
@@ -63,6 +63,10 @@ export type GPUInfo = {
 };
 
 export type HealthCheck = {
+    /**
+     * Color of status of the API
+     */
+    color: string;
     /**
      * Health status of the API
      */
@@ -117,14 +121,14 @@ export type SystemInfo = {
     python_version: string;
 };
 
-export type GetTensorflowInfoResponse = (GPUInfo);
+export type GetServerHealthResponse = (HealthCheck);
 
-export type GetTensorflowInfoError = unknown;
+export type GetServerHealthError = (unknown);
 
 export type GetSystemInfoResponse = (SystemInfo);
 
-export type GetSystemInfoError = unknown;
+export type GetSystemInfoError = (unknown);
 
-export type GetServerHealthResponse = (HealthCheck);
+export type GetTensorflowInfoResponse = (GPUInfo);
 
-export type GetServerHealthError = unknown;
+export type GetTensorflowInfoError = (unknown);

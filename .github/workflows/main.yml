@@ -37,7 +37,7 @@ jobs:
           path: ~/conda_pkgs_dir
           key:
             ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
-            hashFiles('server/environment.yml') }}
+            hashFiles('src-python/environment.yml') }}
 
       - name: Setup Miniconda # Using conda because seems better for utils
         uses: conda-incubator/setup-miniconda@v3
@@ -46,13 +46,14 @@ jobs:
           python-version: 3.9
           auto-activate-base: false
           channels: 'conda-forge'
-          environment-file: server/environment.yml
+          environment-file: src-python/environment.yml
 
-      - name: Build Python Sidecar # Build a processing sidecar for the tauri app using pyinstaller | not using onefile beacause _internals is way faster.
+      - name: Build Python Sidecar
         shell: bash -el {0}
         run: |
           conda activate tensorflow-fastapi
-          pyinstaller 'server/server.spec' --distpath 'src-tauri/bin'  --noconfirm --clean
+          cd src-python
+          pyinstaller server.spec --distpath ../src-tauri/bin --noconfirm --clean
 
       - name: setup node # Setup node for the frontend
         uses: actions/setup-node@v4

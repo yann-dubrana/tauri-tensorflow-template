@@ -1,5 +1,11 @@
 # PowerShell Script: build-server.ps1
 
+# Store the original location
+$originalLocation = Get-Location
+
+# Change to src-python directory
+Set-Location -Path "./src-python"
+
 # Specify the Conda environment name
 $condaEnvName = "tensorflow-fastapi"
 
@@ -32,11 +38,11 @@ $scriptsPath = Join-Path -Path $condaEnvPath -ChildPath "Scripts"
 $env:PATH += ";$scriptsPath"
 
 # Run PyInstaller with the provided .spec file
-$specFilePath = "./server/server.spec"  # Adjust path if needed
-$distPath = "./src-tauri/bin/"   # Adjust path if needed
+$specFilePath = "server.spec"  # Adjust path if needed
+$distPath = "../src-tauri/bin/"   # Adjust path if needed
 
 Write-Host "Running PyInstaller..." -ForegroundColor Green
-pyinstaller $specFilePath --distpath $distPath
+pyinstaller --clean --noconfirm $specFilePath --distpath $distPath
 
 # Check if PyInstaller executed successfully
 if ($LASTEXITCODE -ne 0) {

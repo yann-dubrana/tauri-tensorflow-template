@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-/build
+/src-python/build
 /.svelte-kit
 /package
 .env

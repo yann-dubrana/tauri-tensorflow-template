@@ -13,6 +13,7 @@ class ServerHealthState {
 
     async check() {
         try {
+
             let query = await getServerHealth();
             if (!query.data || query.error) {
                 this.error = query.error as string;

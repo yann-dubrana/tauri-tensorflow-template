@@ -71,7 +71,7 @@ cd tauri-tensorflow-template
 Use Conda to create the required environment from the `environment.yml` file:
 
 ```bash
-cd server
+cd src-python
 conda create --file environment.yml
 conda activate tauri-tensorflow
 ```
@@ -96,7 +96,7 @@ To confirm the installation:
 Use the provided PowerShell script to bundle the server into an executable using PyInstaller:
 
 ```bash
-pnpm run build-server
+pnpm run build-src-python
 ```
 
 This will generate the server executable along with the required Python runtime.
