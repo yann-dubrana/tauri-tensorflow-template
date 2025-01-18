@@ -1,19 +1,13 @@
 <script>
     import "../app.css";
     import {client} from "$lib/client";
-    import {onMount} from "svelte";
     import {serverHealthStore} from "$lib/health.store.svelte";
     import Update from "$lib/components/Update.svelte";
 
-    let {data, children} = $props();
+    let {children} = $props();
 
-    client.setConfig({
-        baseUrl: 'http://localhost:63421/'
-    });
-
-    onMount(async () => {
-        await serverHealthStore.check()
-    });
+    client.setConfig({baseUrl: 'http://127.0.0.1:63421/'});
+    serverHealthStore.check()
 
 </script>
 

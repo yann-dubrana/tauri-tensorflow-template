@@ -1,7 +1,7 @@
 import {getServerHealth} from "$lib/client"; // Assuming this is your generated API client
 
 const MAX_RETRIES = 10;
-const INITIAL_RETRY_MS = 1000;
+const INITIAL_RETRY_MS = 25;
 
 class ServerHealthState {
     isReady: boolean = $state(false);
@@ -13,7 +13,6 @@ class ServerHealthState {
 
     async check() {
         try {
-
             let query = await getServerHealth();
             if (!query.data || query.error) {
                 this.error = query.error as string;
@@ -37,7 +36,7 @@ class ServerHealthState {
             if (this.timeoutId) {
                 clearInterval(this.timeoutId);
             }
-            this.timeoutId = setInterval(this.check, newTimeout);
+            this.timeoutId = setInterval(()=>{this.check()}, newTimeout);
         }
     }
 }
